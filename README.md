@@ -1,6 +1,14 @@
-# name of non-profit
+# hack4impact team 18 bootcamp project!
 
-{One sentence description of the project}
+a movie theater membership website we'll develop over the next few weeks!
+
+## commit statements
+write commit statements like you're explaining what you just did to someone who has no clue what you just did (because you are). commit statements are how you explain changes to others reviewing your code, and to your future self.
+
+the "action: description" template is a good place to start:
+* "add: readme updates"
+* "fix: date formatting on events"
+* "add: student type interface"
 
 ## Table of Contents
 
@@ -8,22 +16,6 @@
   - [Purpose](#purpose)
   - [Team](#team)
 - [Getting Started And Contributing](#getting-started-and-contributing)
-
-## Overview
-
-### Purpose
-
-{Short paragraph description of the non-profit mission and the purpose of this project. Who will this project help, why is it necessary. Impact of the project.}
-
-### Team
-
-The {non-profit name} team consists of {#} Cal Poly students. Over the course of about 9 months, we worked as a team to deploy this web application. The team members are listed below:
-
-- [First Last](https://www.linkedin.com/) - Project Manager
-- [First Last](https://www.linkedin.com/) - Designer
-- [First Last](https://www.linkedin.com/) - Tech Lead
-- [First Last](https://www.linkedin.com/) - Tech Lead
-- [First Last](https://www.linkedin.com/) - Software Developer
 
 ## Getting Started And Contributing
 
