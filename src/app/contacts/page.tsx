@@ -1,10 +1,8 @@
-import Navbar from "@/components/Navbar";
 import styles from "./Contacts.module.css";
 
 export default function ContactsPage() {
   return (
     <>
-      <Navbar />
       <main className={styles.page}>
         <section className={styles.intro} aria-labelledby="contact-heading">
           <p className={styles.eyebrow}>Get in touch</p>

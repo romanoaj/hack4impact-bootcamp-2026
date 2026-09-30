@@ -1,5 +1,4 @@
 import MenuItem from "@/components/MenuItem";
-import Navbar from "@/components/Navbar";
 
 const Menuitems = [
   { name: "Popcorn", price: 5.99, description: "Freshly popped popcorn" },
@@ -11,7 +10,6 @@ const Menuitems = [
 export default function ConcessionsPage() {
   return (
     <div>
-      <Navbar />
       <h1>Concessions</h1>
       <div>
         {Menuitems.map((item) => (
