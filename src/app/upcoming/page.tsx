@@ -1,7 +1,7 @@
-import MovieCard from "@/components/MovieCardPreview";
-import MovieCarousel from "@/components/Carousel";
+import MovieCard from "@/app/components/MovieCardPreview";
+import MovieCarousel from "@/app/components/Carousel";
 import { upcomingMovies } from "@/app/data/upcomingMovies";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/app/components/Navbar";
 
 export default function MoviesPage() {
   return (

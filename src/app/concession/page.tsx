@@ -1,5 +1,5 @@
-import MenuItem from "@/components/MenuItem";
-import Navbar from "@/components/Navbar";
+import MenuItem from "@/app/components/MenuItem";
+import Navbar from "@/app/components/Navbar";
 
 const Menuitems = [
   { name: "Popcorn", price: 5.99, description: "Freshly popped popcorn" },

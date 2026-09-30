@@ -1,6 +1,6 @@
-import MovieCatalog from "@/components/MovieCatalog";
+import MovieCatalog from "@/app/components/MovieCatalog";
 import styles from "@/styles/movies.module.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/app/components/Navbar";
 
 export default function Home() {
   return (
