@@ -1,8 +1,8 @@
-import type { Movie } from "@/app/data/upcomingMovies";
+import type { MovieType } from "@/database/movieSchema";
 import styles from "./carousel.module.css";
 
 type MovieCardPreviewProps = {
-  movie: Movie;
+  movie: MovieType;
 };
 
 export default function MovieCardPreview({ movie }: MovieCardPreviewProps) {

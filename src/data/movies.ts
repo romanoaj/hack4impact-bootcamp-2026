@@ -1,19 +1,21 @@
-export type Movie = {
-  id: string;
-  title: string;
-  director: string;
-  year: number;
-  runtimeMinutes: number;
-  rating: string;
-  genres: string[];
-  description: string;
-  cast: string[];
-  showtimes: string[];
-  posterLabel: string;
-  posterGradient: string;
-};
+import type { MovieType } from "@/database/movieSchema";
 
-export const movies: Movie[] = [
+// export type Movie = {
+//   id: string;
+//   title: string;
+//   director: string;
+//   year: number;
+//   runtimeMinutes: number;
+//   rating: string;
+//   genres: string[];
+//   description: string;
+//   cast: string[];
+//   showtimes: string[];
+//   posterLabel: string;
+//   posterGradient: string;
+// };
+
+export const movies: MovieType[] = [
   {
     id: "spider-man-brand-new-day",
     title: "Spider-Man: Brand New Day",

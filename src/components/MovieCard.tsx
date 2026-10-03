@@ -1,9 +1,9 @@
-import type { Movie } from "@/data/movies";
+import type { MovieType } from "@/database/movieSchema";
 import styles from "@/styles/movies.module.css";
 import Link from "next/link";
 
 type MovieCardProps = {
-  movie: Movie;
+  movie: MovieType;
 };
 
 export default function MovieCard({ movie }: MovieCardProps) {
