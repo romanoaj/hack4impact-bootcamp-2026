@@ -1,4 +1,4 @@
-import { getMovieById, movies } from "@/app/data/movies";
+import { getMovieById, movies } from "@/data/movies";
 import styles from "@/styles/movies.module.css";
 import type { Metadata } from "next";
 import Link from "next/link";
