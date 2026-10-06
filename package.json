@@ -6,10 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "eslint src tests --ext .js,.jsx,.ts,.tsx,.cjs",
+    "lint:fix": "eslint src tests --ext .js,.jsx,.ts,.tsx,.cjs --fix",
     "format": "prettier --write .",
-    "test": "echo 'Install jest (or another unit test suite) to use this command.'",
+    "test": "node --test tests/*.test.cjs",
     "prepare": "husky"
   },
   "dependencies": {

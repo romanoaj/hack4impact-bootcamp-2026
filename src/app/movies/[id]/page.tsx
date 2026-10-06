@@ -1,4 +1,4 @@
-import { getMovieById, movies } from "@/app/data/movies";
+import { getMovieById } from "@/database/movieQueries";
 import styles from "@/styles/movies.module.css";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -8,20 +8,18 @@ type MoviePageProps = {
   params: Promise<{ id: string }>;
 };
 
-export function generateStaticParams() {
-  return movies.map((movie) => ({ id: movie.id }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
   const { id } = await params;
-  const movie = getMovieById(id);
+  const movie = await getMovieById(id);
 
   return movie ? { title: `${movie.title} | Movies`, description: movie.description } : { title: "Movie not found" };
 }
 
 export default async function MoviePage({ params }: MoviePageProps) {
   const { id } = await params;
-  const movie = getMovieById(id);
+  const movie = await getMovieById(id);
 
   if (!movie) notFound();
 
