@@ -5,6 +5,7 @@ import Navbar from "@/app/components/Navbar";
 export default function Home() {
   return (
     <main className={styles.page}>
+      <Navbar />
       <header className={styles.simpleHeader}>
         <h1>MOVIES</h1>
       </header>

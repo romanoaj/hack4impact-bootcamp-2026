@@ -1,23 +1,14 @@
-import MenuItem from "@/app/components/MenuItem";
+import ConcessionMenu from "@/app/components/ConcessionMenu";
 import Navbar from "@/app/components/Navbar";
-
-const Menuitems = [
-  { name: "Popcorn", price: 5.99, description: "Freshly popped popcorn" },
-  { name: "Soda", price: 3.99, description: "Refreshing carbonated drink" },
-  { name: "Chips", price: 1.99, description: "Crispy and savory chips" },
-  { name: "Candy", price: 2.49, description: "Sweet and delicious candy" },
-];
 
 export default function ConcessionsPage() {
   return (
     <div>
       <Navbar />
-      <h1>Concessions</h1>
-      <div>
-        {Menuitems.map((item) => (
-          <MenuItem key={item.name} name={item.name} price={item.price} description={item.description} />
-        ))}
-      </div>
+      <main className="mx-auto max-w-6xl px-6 py-10">
+        <h1 className="mb-8 text-4xl font-semibold">Concessions</h1>
+        <ConcessionMenu />
+      </main>
     </div>
   );
 }
