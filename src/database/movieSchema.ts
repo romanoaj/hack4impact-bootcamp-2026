@@ -41,3 +41,5 @@ const MovieSchema = new Schema({
 export type MovieType = InferSchemaType<typeof MovieSchema>;
 
 export default mongoose.models.Movie || mongoose.model("Movie", MovieSchema);
+
+export const UpcomingMovie = mongoose.models.UpcomingMovie || mongoose.model("UpcomingMovie", MovieSchema);

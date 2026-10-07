@@ -1,4 +1,4 @@
-import { movies } from "@/data/movies";
+import { movies } from "@/app/data/movies";
 import styles from "@/styles/movies.module.css";
 import MovieCard from "./MovieCard";
 

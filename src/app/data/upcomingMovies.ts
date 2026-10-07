@@ -1,7 +1,5 @@
 import type { MovieType } from "@/database/movieSchema";
 
-type Movie = MovieType;
-
 // export type Movie = {
 //   id: string;
 //   title: string;
