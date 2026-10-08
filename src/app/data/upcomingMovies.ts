@@ -1,19 +1,21 @@
-export type Movie = {
-  id: string;
-  title: string;
-  director: string;
-  year: number;
-  runtimeMinutes: number;
-  rating: string;
-  genres: string[];
-  description: string;
-  cast: string[];
-  showtimes: string[];
-  posterLabel: string;
-  posterGradient: string;
-};
+import type { MovieType } from "@/database/movieSchema";
 
-export const upcomingMovies: Movie[] = [
+// export type Movie = {
+//   id: string;
+//   title: string;
+//   director: string;
+//   year: number;
+//   runtimeMinutes: number;
+//   rating: string;
+//   genres: string[];
+//   description: string;
+//   cast: string[];
+//   showtimes: string[];
+//   posterLabel: string;
+//   posterGradient: string;
+// };
+
+export const upcomingMovies: MovieType[] = [
   {
     id: "starlight-harbor",
     title: "Starlight Harbor",
