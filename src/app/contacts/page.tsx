@@ -1,4 +1,4 @@
-import Navbar from "@/app/components/Navbar";
+import Navbar from "@/components/Navbar";
 import styles from "./Contacts.module.css";
 
 export default function ContactsPage() {
