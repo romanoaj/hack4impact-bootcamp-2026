@@ -12,7 +12,7 @@ const links = [
 export default function Navbar() {
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}> Theater Name </div>
+      <div className={styles.logo}>Silver Screen Cinema</div>
       <ul className={styles.links}>
         {links.map((link) => (
           <li key={link.href}>
