@@ -127,3 +127,7 @@
     @apply font-sans;
   }
 }
+
+@theme {
+  --font-georgia: Georgia, "Times New Roman", serif;
+}

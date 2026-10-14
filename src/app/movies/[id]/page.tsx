@@ -67,7 +67,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
                 <Link
                   key={showtime}
                   className={styles.detailShowtime}
-                  href={`/seats?movie=${movie.id}&time=${encodeURIComponent(showtime)}`}
+                  href={`/movies/${movie.id}/seats/${encodeURIComponent(showtime)}`}
                 >
                   {showtime}
                 </Link>
