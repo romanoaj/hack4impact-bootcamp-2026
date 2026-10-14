@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "./Navbar.module.css";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/contacts", label: "Contacts" },
   { href: "/concession", label: "Concession" },
@@ -12,7 +11,9 @@ const links = [
 export default function Navbar() {
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>Silver Screen Cinema</div>
+      <Link href="/" className={styles.logo}>
+        Silver Screen Cinema
+      </Link>
       <ul className={styles.links}>
         {links.map((link) => (
           <li key={link.href}>

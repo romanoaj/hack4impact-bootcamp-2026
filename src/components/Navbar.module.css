@@ -1,30 +1,73 @@
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: #1a1a1a;
-  color: #ffffff;
+  gap: 24px;
+  height: 4.5rem;
+  padding: 0 clamp(24px, 7vw, 112px);
+  color: #f8f5ed;
+  background: rgba(10, 10, 11, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #27272a;
 }
 
 .logo {
-  font-size: 1.25rem;
-  font-weight: 700;
+  color: #f8f5ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 180ms ease;
+}
+
+.logo:hover,
+.logo:focus-visible {
+  color: #e7b769;
+  outline: none;
 }
 
 .links {
   display: flex;
-  gap: 1.5rem;
-  list-style: none;
+  flex-wrap: wrap;
+  gap: 8px clamp(16px, 2.5vw, 32px);
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 .links a {
-  color: #ffffff;
+  padding: 6px 0;
+  color: #b5ada1;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
   text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
-.links a:hover {
-  text-decoration: underline;
+.links a:hover,
+.links a:focus-visible {
+  color: #e7b769;
+  border-bottom-color: #8e6938;
+  outline: none;
+}
+
+@media (max-width: 720px) {
+  .navbar {
+    height: auto;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
