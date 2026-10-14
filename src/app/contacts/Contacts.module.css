@@ -1,82 +1,90 @@
 .page {
-  min-height: calc(100vh - 4.5rem);
-  padding: 4rem 1.5rem 5rem;
-  background: #f8f8f8;
+  min-height: 100vh;
+  color: #f8f5ed;
+  background: radial-gradient(circle at 80% 5%, rgba(135, 92, 50, 0.16), transparent 34%), #0a0a0b;
 }
 
 .intro {
-  max-width: 42rem;
-  margin: 0 auto 2.5rem;
-  text-align: center;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 72px clamp(24px, 7vw, 112px) 10px;
 }
 
 .eyebrow {
-  margin: 0 0 0.75rem;
-  color: #9c0707;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  margin: 0 0 16px;
+  color: #e7b769;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 .intro h1 {
   margin: 0;
-  color: #1a1a1a;
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  line-height: 1.1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
 }
 
 .description {
-  margin: 1rem auto 0;
-  color: #666666;
+  max-width: 610px;
+  margin: 28px 0 0;
+  color: #c7c0b4;
   font-size: 1.05rem;
-  line-height: 1.6;
+  line-height: 1.75;
+}
+
+.formSection {
+  padding: 42px clamp(24px, 7vw, 112px) 120px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  max-width: 42rem;
+  gap: 22px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 2rem;
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: clamp(22px, 4vw, 40px);
+  background: #141416;
+  border: 1px solid #27272a;
+  border-radius: 18px;
 }
 
 .fieldGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: 22px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 9px;
 }
 
 .field label {
-  color: #1a1a1a;
-  font-size: 0.95rem;
-  font-weight: 600;
+  color: #777168;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .field input,
 .field textarea {
   width: 100%;
-  padding: 0.8rem 0.9rem;
-  color: #1a1a1a;
+  padding: 12px 15px;
+  color: #f8f5ed;
   font: inherit;
-  background: #ffffff;
-  border: 1px solid #d4d4d4;
-  border-radius: 8px;
+  background: #202023;
+  border: 1px solid #27272a;
+  border-radius: 9px;
   box-sizing: border-box;
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .field textarea {
@@ -86,40 +94,40 @@
 
 .field input:focus,
 .field textarea:focus {
-  border-color: #9c0707;
+  border-color: #8e6938;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(156, 7, 7, 0.14);
+  box-shadow: 0 0 0 3px rgba(231, 183, 105, 0.14);
 }
 
 .submitButton {
   align-self: flex-start;
-  padding: 0.8rem 1.25rem;
-  color: #ffffff;
+  padding: 12px 18px;
+  color: #17110a;
   font: inherit;
-  font-weight: 700;
-  background: #9c0707;
+  font-size: 0.9rem;
+  font-weight: 750;
+  background: #e7b769;
   border: 0;
-  border-radius: 8px;
+  border-radius: 9px;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
 }
 
 .submitButton:hover {
-  background: #760505;
+  background: #f4cb85;
+  transform: translateY(-2px);
 }
 
 .submitButton:focus-visible {
-  outline: 3px solid rgba(156, 7, 7, 0.35);
+  outline: 3px solid rgba(231, 183, 105, 0.35);
   outline-offset: 2px;
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 3rem 1rem 4rem;
-  }
-
-  .form {
-    padding: 1.25rem;
+@media (max-width: 640px) {
+  .intro {
+    padding-top: 50px;
   }
 
   .fieldGrid {
@@ -128,5 +136,13 @@
 
   .submitButton {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field input,
+  .field textarea,
+  .submitButton {
+    transition: none;
   }
 }
