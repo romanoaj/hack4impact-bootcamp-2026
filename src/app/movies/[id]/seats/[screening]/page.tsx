@@ -11,16 +11,6 @@ type MoviePageProps = {
 const ROWS = 8;
 const SEATS_PER_ROW = 12;
 
-function randomTakenSeats() {
-  const taken: string[] = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 1; c <= SEATS_PER_ROW; c++) {
-      if (Math.random() < 0.3) taken.push(`${String.fromCharCode(65 + r)}${c}`);
-    }
-  }
-  return taken;
-}
-
 export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
   const { id, screening } = await params;
   const movie = await getMovieById(id);
@@ -59,7 +49,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
           </div>
 
           <div className="mt-12">
-            <SeatSelect takenSeats={randomTakenSeats()} rows={ROWS} seatsPerRow={SEATS_PER_ROW} />
+            <SeatSelect storageKey={`seats:${movie.id}:${screening}`} rows={ROWS} seatsPerRow={SEATS_PER_ROW} />
           </div>
         </div>
       </article>

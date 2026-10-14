@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 
 type SeatSelectProps = {
-  /** Seat IDs (e.g. "C5") that are already taken. */
-  takenSeats: string[];
+  /** localStorage key under which taken and booked seats are persisted. */
+  storageKey: string;
   rows?: number;
   seatsPerRow?: number;
   onChange?: (selected: string[]) => void;
@@ -13,11 +13,55 @@ type SeatSelectProps = {
 
 const rowLabel = (row: number) => String.fromCharCode(65 + row);
 
-export default function SeatSelect({ takenSeats, rows = 8, seatsPerRow = 12, onChange, onConfirm }: SeatSelectProps) {
-  const taken = useMemo(() => new Set(takenSeats), [takenSeats]);
+type StoredSeats = { taken: string[]; booked: string[] };
+
+function randomTakenSeats(rows: number, seatsPerRow: number) {
+  const taken: string[] = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 1; c <= seatsPerRow; c++) {
+      if (Math.random() < 0.3) taken.push(`${rowLabel(r)}${c}`);
+    }
+  }
+  return taken;
+}
+
+// localStorage doesn't notify the writing tab, so keep our own subscribers.
+const listeners = new Set<() => void>();
+const subscribe = (cb: () => void) => {
+  listeners.add(cb);
+  return () => void listeners.delete(cb);
+};
+const writeSeats = (key: string, seats: StoredSeats) => {
+  localStorage.setItem(key, JSON.stringify(seats));
+  listeners.forEach((cb) => cb());
+};
+const EMPTY: StoredSeats = { taken: [], booked: [] };
+
+export default function SeatSelect({ storageKey, rows = 8, seatsPerRow = 12, onChange, onConfirm }: SeatSelectProps) {
+  // The server snapshot is null, so hydration matches; the client then reads localStorage.
+  const raw = useSyncExternalStore(
+    subscribe,
+    () => localStorage.getItem(storageKey),
+    () => null,
+  );
+  const loaded = raw !== null;
+  const { taken, booked } = useMemo<StoredSeats>(() => {
+    try {
+      return raw ? (JSON.parse(raw) as StoredSeats) : EMPTY;
+    } catch {
+      return EMPTY;
+    }
+  }, [raw]);
 
   const [selected, setSelected] = useState<string[]>([]);
-  const [booked, setBooked] = useState<string[]>([]);
+
+  // First visit: generate and persist the random taken seats.
+  useEffect(() => {
+    if (localStorage.getItem(storageKey) === null) {
+      writeSeats(storageKey, { taken: randomTakenSeats(rows, seatsPerRow), booked: [] });
+    }
+  }, [storageKey, rows, seatsPerRow]);
+
   const [justBooked, setJustBooked] = useState<string[]>([]);
 
   const toggleSeat = (seat: string) => {
@@ -29,7 +73,7 @@ export default function SeatSelect({ takenSeats, rows = 8, seatsPerRow = 12, onC
 
   const confirmSeats = () => {
     onConfirm?.(selected);
-    setBooked([...booked, ...selected]);
+    writeSeats(storageKey, { taken, booked: [...booked, ...selected] });
     setJustBooked(selected);
     setSelected([]);
     onChange?.([]);
@@ -48,7 +92,9 @@ export default function SeatSelect({ takenSeats, rows = 8, seatsPerRow = 12, onC
             <span className="w-4 text-xs text-stone-500">{rowLabel(r)}</span>
             {Array.from({ length: seatsPerRow }, (_, i) => {
               const seat = `${rowLabel(r)}${i + 1}`;
-              const isTaken = taken.has(seat) || booked.includes(seat);
+              const isBooked = booked.includes(seat);
+              const isTaken = taken.includes(seat);
+              const isUnavailable = !loaded || isTaken || isBooked;
               const isSelected = selected.includes(seat);
               const isAisle = i === Math.floor(seatsPerRow / 2) - 1;
 
@@ -56,16 +102,18 @@ export default function SeatSelect({ takenSeats, rows = 8, seatsPerRow = 12, onC
                 <button
                   key={seat}
                   type="button"
-                  disabled={isTaken}
+                  disabled={isUnavailable}
                   onClick={() => toggleSeat(seat)}
-                  aria-label={`Seat ${seat}${isTaken ? ", taken" : ""}`}
+                  aria-label={`Seat ${seat}${isBooked ? ", your booking" : isTaken ? ", taken" : ""}`}
                   aria-pressed={isSelected}
                   className={`size-7 rounded-t-lg rounded-b-sm text-[0.6rem] transition-colors ${isAisle ? "mr-4" : ""} ${
-                    isTaken
-                      ? "cursor-not-allowed bg-stone-800 text-transparent"
-                      : isSelected
-                        ? "bg-yellow-400 text-neutral-950 font-semibold"
-                        : "cursor-pointer bg-stone-600 text-transparent hover:bg-stone-400 hover:text-neutral-950"
+                    isBooked
+                      ? "cursor-not-allowed bg-emerald-500 text-neutral-950 font-semibold"
+                      : isTaken
+                        ? "cursor-not-allowed bg-stone-800 text-transparent"
+                        : isSelected
+                          ? "bg-yellow-400 text-neutral-950 font-semibold"
+                          : "cursor-pointer bg-stone-600 text-transparent hover:bg-stone-400 hover:text-neutral-950"
                   }`}
                 >
                   {i + 1}
@@ -83,6 +131,9 @@ export default function SeatSelect({ takenSeats, rows = 8, seatsPerRow = 12, onC
         </span>
         <span className="flex items-center gap-2">
           <span className="size-4 rounded-t-md rounded-b-sm bg-yellow-400" /> Selected
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="size-4 rounded-t-md rounded-b-sm bg-emerald-500" /> Your seats
         </span>
         <span className="flex items-center gap-2">
           <span className="size-4 rounded-t-md rounded-b-sm bg-stone-800" /> Taken
