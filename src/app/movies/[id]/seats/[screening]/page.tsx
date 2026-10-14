@@ -1,4 +1,4 @@
-import { getMovieById } from "@/app/data/movies";
+import { getMovieById } from "@/database/movies";
 import SeatSelect from "@/components/SeatSelect";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -23,7 +23,7 @@ function randomTakenSeats() {
 
 export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
   const { id, screening } = await params;
-  const movie = getMovieById(id);
+  const movie = await getMovieById(id);
 
   return movie
     ? { title: `${decodeURIComponent(screening)} ${movie.title} | Movies`, description: movie.description }
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: MoviePageProps): Promise<Meta
 export default async function MoviePage({ params }: MoviePageProps) {
   const { id, screening } = await params;
 
-  const movie = getMovieById(id);
+  const movie = await getMovieById(id);
   if (!movie) notFound();
 
   return (
