@@ -23,6 +23,37 @@
   padding: 42px clamp(24px, 7vw, 112px) 120px;
 }
 
+.searchBar {
+  max-width: 1360px;
+  margin: 0 auto 32px;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 16px;
+  color: #f8f5ed;
+  font-size: 1rem;
+  background: #141416;
+  border: 1px solid #4a4742;
+  border-radius: 6px;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #7d776e;
+}
+
+.searchInput:focus {
+  border-color: #bbb3a7;
+}
+
+.noResults {
+  max-width: 1360px;
+  margin: 0 auto;
+  color: #bbb3a7;
+}
+
 .movieGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
