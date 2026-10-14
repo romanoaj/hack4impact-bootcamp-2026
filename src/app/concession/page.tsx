@@ -1,4 +1,5 @@
 import MenuItem from "@/components/MenuItem";
+import styles from "@/styles/movies.module.css";
 
 const Menuitems = [
   { name: "Popcorn", price: 5.99, description: "Freshly popped popcorn" },
@@ -9,13 +10,18 @@ const Menuitems = [
 
 export default function ConcessionsPage() {
   return (
-    <div>
-      <h1>Concessions</h1>
-      <div>
-        {Menuitems.map((item) => (
-          <MenuItem key={item.name} name={item.name} price={item.price} description={item.description} />
-        ))}
-      </div>
-    </div>
+    <main className={styles.page}>
+      <header className={styles.simpleHeader}>
+        <h1>CONCESSIONS</h1>
+      </header>
+
+      <section className={styles.catalog}>
+        <div className={styles.movieGrid}>
+          {Menuitems.map((item) => (
+            <MenuItem key={item.name} name={item.name} price={item.price} description={item.description} />
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
