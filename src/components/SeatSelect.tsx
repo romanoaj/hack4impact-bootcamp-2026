@@ -63,6 +63,8 @@ export default function SeatSelect({ storageKey, rows = 8, seatsPerRow = 12, onC
   }, [storageKey, rows, seatsPerRow]);
 
   const [justBooked, setJustBooked] = useState<string[]>([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   const toggleSeat = (seat: string) => {
     const next = selected.includes(seat) ? selected.filter((s) => s !== seat) : [...selected, seat];
@@ -75,8 +77,16 @@ export default function SeatSelect({ storageKey, rows = 8, seatsPerRow = 12, onC
     onConfirm?.(selected);
     writeSeats(storageKey, { taken, booked: [...booked, ...selected] });
     setJustBooked(selected);
+    setShowPopup(true);
     setSelected([]);
     onChange?.([]);
+  };
+
+  const cancelBooking = () => {
+    writeSeats(storageKey, { taken, booked: [] });
+    setJustBooked([]);
+    setShowPopup(false);
+    setShowCancelConfirm(false);
   };
 
   return (
@@ -148,6 +158,22 @@ export default function SeatSelect({ storageKey, rows = 8, seatsPerRow = 12, onC
             : `${selected.length} seat${selected.length === 1 ? "" : "s"} selected: ${selected.join(", ")}`}
       </p>
 
+      {booked.length > 0 && (
+        <div className="flex items-center gap-4 text-stone-300">
+          <p>
+            {justBooked.length > 0 ? "Reserved by you" : "Already reserved by you"}:{" "}
+            <span className="font-semibold text-emerald-400">{booked.join(", ")}</span>
+          </p>
+          <button
+            type="button"
+            onClick={() => setShowCancelConfirm(true)}
+            className="cursor-pointer rounded-full border border-red-400 px-4 py-1 text-sm font-semibold text-red-400 transition-colors hover:bg-red-400 hover:text-neutral-950"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
       <button
         type="button"
         disabled={selected.length === 0}
@@ -156,6 +182,79 @@ export default function SeatSelect({ storageKey, rows = 8, seatsPerRow = 12, onC
       >
         Confirm seats
       </button>
+
+      {showCancelConfirm && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setShowCancelConfirm(false)}
+        >
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="cancel-confirm-title"
+            className="flex w-full max-w-sm flex-col items-center gap-4 rounded-2xl bg-stone-900 p-8 text-center shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="cancel-confirm-title" className="text-xl font-semibold text-stone-100">
+              Cancel reservation?
+            </h2>
+            <p className="text-stone-300">
+              This will release {booked.length === 1 ? "seat" : "seats"} {booked.join(", ")}.
+            </p>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                autoFocus
+                onClick={() => setShowCancelConfirm(false)}
+                className="cursor-pointer rounded-full border border-stone-500 px-6 py-2 font-semibold text-stone-300 transition-colors hover:bg-stone-700"
+              >
+                Keep seats
+              </button>
+              <button
+                type="button"
+                onClick={cancelBooking}
+                className="cursor-pointer rounded-full bg-red-400 px-6 py-2 font-semibold text-neutral-950 transition-colors hover:bg-red-300"
+              >
+                Yes, cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showPopup && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setShowPopup(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="seats-confirmed-title"
+            className="flex w-full max-w-sm flex-col items-center gap-4 rounded-2xl bg-stone-900 p-8 text-center shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex size-16 items-center justify-center rounded-full bg-emerald-500 text-3xl font-bold text-neutral-950">
+              ✓
+            </div>
+            <h2 id="seats-confirmed-title" className="text-xl font-semibold text-stone-100">
+              Seats confirmed!
+            </h2>
+            <p className="text-stone-300">
+              {justBooked.length === 1 ? "Seat" : "Seats"} {justBooked.join(", ")}{" "}
+              {justBooked.length === 1 ? "is" : "are"} booked.
+            </p>
+            <button
+              type="button"
+              autoFocus
+              onClick={() => setShowPopup(false)}
+              className="cursor-pointer rounded-full bg-yellow-400 px-8 py-2 font-semibold text-neutral-950 transition-colors hover:bg-yellow-300"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
